@@ -1,7 +1,6 @@
 ```mermaid
     erDiagram
 
-        erDiagram
     BEEKEEPER {
         int id PK "id_apicoltore"
         string name "nome"
