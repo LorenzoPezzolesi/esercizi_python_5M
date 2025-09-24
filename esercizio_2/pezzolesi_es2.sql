@@ -24,7 +24,7 @@ CREATE TABLE APIARIO (
     provincia VARCHAR(50) NOT NULL,
     regione VARCHAR(50) NOT NULL,
     id_apicoltore INT,
-    FOREIGN KEY (id_apicoltore) REFERENCES BEEKEEPER(id_apicoltore)
+    FOREIGN KEY (id_apicoltore) REFERENCES APICOLTORE(id_apicoltore)
 );
 
 CREATE TABLE PRODUZIONE (
@@ -36,3 +36,24 @@ CREATE TABLE PRODUZIONE (
     FOREIGN KEY (id_miele) REFERENCES MIELE(id_miele),
     FOREIGN KEY (codice_apiario) REFERENCES APIARIO(codice_apiario)
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
