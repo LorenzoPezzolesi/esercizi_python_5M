@@ -40,20 +40,3 @@ CREATE TABLE PRODUZIONE (
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
