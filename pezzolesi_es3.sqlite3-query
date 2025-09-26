@@ -1,4 +1,4 @@
--- database: ../esercizio.db
+-- database: ./pezzolesi_es3.sqlite
 
 CREATE TABLE APICOLTORE (
     id INT PRIMARY KEY,
