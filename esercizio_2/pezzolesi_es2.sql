@@ -37,6 +37,3 @@ CREATE TABLE PRODUZIONE (
     FOREIGN KEY (codice_apiario) REFERENCES APIARIO(codice_apiario)
 );
 
-
-
-
