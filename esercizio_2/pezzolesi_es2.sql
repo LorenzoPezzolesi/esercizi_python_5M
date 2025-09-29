@@ -37,8 +37,43 @@ CREATE TABLE PRODUZIONE (
     FOREIGN KEY (codice_apiario) REFERENCES APIARIO(codice_apiario)
 );
 
-SELECT * FROM APICOLTORE
-;
+-- Typology
+INSERT INTO Typology (id, typology_name, typology_description) VALUES
+(1, 'Monofloral', 'Miele prodotto prevalentemente da un unico fiore'),
+(2, 'Polyfloral', 'Miele di millefiori, raccolto da più specie floreali'),
+(3, 'Honeydew', 'Miele prodotto a partire dal melato (secrezioni di insetti)');
+
+-- Beekeeper
+INSERT INTO Beekeeper (id, beekeeper_name) VALUES
+(1, 'Marco Rossi'),
+(2, 'Lucia Bianchi'),
+(3, 'Alessandro Verdi');
+
+-- Honey
+INSERT INTO Honey (id, denomination, typology_id) VALUES
+(1, 'Acacia', 1),
+(2, 'Castagno', 1),
+(3, 'Millefiori', 2),
+(4, 'Eucalipto', 2),
+(5, 'Melata di Bosco', 3);
+
+-- Apiary
+INSERT INTO Apiary (code, num_hives, locality, comune, province, region, beekeeper_id) VALUES
+(100, 12, 'Fattoria Le Rose', 'San Pietro', 'Pisa', 'Toscana', 1),
+(101, 8, 'Colle Verde', 'Montevarchi', 'Arezzo', 'Toscana', 2),
+(102, 20, 'Bosco Alto', 'Vercelli', 'Vercelli', 'Piemonte', 3),
+(103, 5, 'Terrazza Sud', 'Verona', 'Verona', 'Veneto', 1);
+
+-- Production
+INSERT INTO Production (id, year, quantity, apiary_code, honey_id) VALUES
+(1, 2022, 120.5, 100, 1),
+(2, 2022, 95.2, 101, 3),
+(3, 2023, 210.0, 102, 5),
+(4, 2023, 34.7, 103, 2),
+(5, 2024, 150.0, 100, 3),
+(6, 2024, 78.3, 101, 4);
+
+--Seleziona tutti gli apicoltori.
 SELECT Nome FROM APICOLTORE WHERE id = 1
 ;
 SELECT * FROM APIARIO WHERE regione = 'Lombardia'
@@ -58,7 +93,7 @@ SELECT * FROM PRODUZIONE WHERE codice_apiario = 102
 SELECT * FROM PRODUZIONE WHERE id_miele = 3 AND anno = 2023
 ;
 
---Seleziona tutti gli apicoltori.
+
 --Seleziona il nome dell'apicoltore con id = 1.
 --Seleziona tutti gli apiari nella regione 'Lombardia'.
 --Seleziona codice e numero_arnie degli apiari con più di 10 arnie.
