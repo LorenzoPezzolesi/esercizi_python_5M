@@ -14,7 +14,7 @@ CREATE TABLE MIELE (
     id INT PRIMARY KEY,
     denominazione VARCHAR(50) NOT NULL,
     id_tipologia INT,
-    FOREIGN KEY (id_tipologia) REFERENCES TIPOLOGIA(id_tipologia)
+    FOREIGN KEY (id_tipologia) REFERENCES TIPOLOGIA(id)
 );
 
 CREATE TABLE APIARIO (
@@ -77,12 +77,17 @@ INSERT INTO APIARIO (codice_apiario, numero_arnie, localita, comune, provincia, 
 (103, 5, 'Terrazza Sud', 'Verona', 'Verona', 'Veneto', 1);
 
 -- Produzione
-INSERT INTO PRODUZIONE (id, year, quantity, apiary_code, honey_id) VALUES
-(1, 2022, 120.5, 100, 1),
-(2, 2022, 95.2, 101, 3),
-(3, 2023, 210.0, 102, 5),
-(4, 2023, 34.7, 103, 2),
-(5, 2024, 150.0, 100, 3),
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+(1, 2022, 120.5, 100, 1);
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+(2, 2022, 95.2, 101, 3);
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+(3, 2023, 210.0, 102, 5);
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+(4, 2023, 34.7, 103, 2);
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+(5, 2024, 150.0, 100, 3);
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
 (6, 2024, 78.3, 101, 4);
 
 --Seleziona tutti gli apicoltori.
