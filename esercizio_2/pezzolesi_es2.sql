@@ -66,7 +66,7 @@ INSERT INTO MIELE (id, denominazione, id_tipologia) VALUES
 INSERT INTO MIELE (id, denominazione, id_tipologia) VALUES
 (5, 'Melata di Bosco', 3);
 
--- Apiario ------------------------------------------------
+-- Apiario
 INSERT INTO APIARIO (codice_apiario, numero_arnie, localita, comune, provincia, regione, id_apicoltore) VALUES
 (100, 12, 'Fattoria Le Rose', 'San Pietro', 'Pisa', 'Toscana', 1);
 INSERT INTO APIARIO (codice_apiario, numero_arnie, localita, comune, provincia, regione, id_apicoltore) VALUES
