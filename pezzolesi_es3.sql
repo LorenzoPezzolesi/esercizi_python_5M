@@ -1,3 +1,4 @@
+-- database: :memory:
 CREATE TABLE APICOLTORE (
     id INT PRIMARY KEY,
     Nome VARCHAR(50) NOT NULL
@@ -33,6 +34,7 @@ CREATE TABLE PRODUZIONE (
     quantita_prodotta INT NOT NULL,
     id_miele INT,
     codice_apiario INT,
+    totale_produzione INT,
     FOREIGN KEY (id_miele) REFERENCES MIELE(id),
     FOREIGN KEY (codice_apiario) REFERENCES APIARIO(codice_apiario)
 );
@@ -76,29 +78,85 @@ INSERT INTO APIARIO (codice_apiario, numero_arnie, localita, comune, provincia, 
 (103, 5, 'Terrazza Sud', 'Verona', 'Verona', 'Veneto', 1);
 
 -- Produzione
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
 (1, 2022, 120.5, 100, 1);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
 (2, 2022, 95.2, 101, 3);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
 (3, 2023, 210.0, 102, 5);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
 (4, 2023, 34.7, 103, 2);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
 (5, 2024, 150.0, 100, 3);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
 (6, 2024, 78.3, 101, 4);
 
--- Seleziona la quantità totale prodotta per anno.
+-- Seleziona la quantità totale prodotta per anno. 
+SELECT anno, SUM(quantita_prodotta) AS totale_produzione
+FROM PRODUZIONE
+GROUP BY anno;
 
 -- Seleziona la produzione media per apiario.
+SELECT codice_apiario, AVG(quantita_prodotta) AS produzione_media
+FROM PRODUZIONE
+GROUP BY codice_apiario;
+
 -- Seleziona il numero di produzioni e la produzione totale per miele.
+SELECT id_miele, COUNT(*) AS numero_produzioni, SUM(quantita_prodotta) AS produzione_totale
+FROM PRODUZIONE 
+GROUP BY id_miele;
+
 -- Seleziona la produzione totale per miele nell'anno 2024.
+SELECT id_miele, SUM(quantita_prodotta) AS produzione_totale_2024
+FROM PRODUZIONE
+WHERE anno = 2024
+GROUP BY id_miele;
+
 -- Seleziona il valore massimo e minimo di produzione per anno.
+SELECT anno, MAX(quantita_prodotta) AS produzione_massima, MIN(quantita_prodotta) AS produzione_minima
+FROM PRODUZIONE
+GROUP BY anno;
+
 -- Seleziona gli apiari la cui produzione totale supera 200.
+SELECT codice_apiario, SUM(quantita_prodotta) AS produzione_totale
+FROM PRODUZIONE
+GROUP BY codice_apiario
+HAVING SUM(quantita_prodotta) > 200;
+
 -- Seleziona la produzione totale per tipologia di miele (typology_id).
+SELECT T.id AS tipologia_id, T.Nome AS tipologia_nome, SUM(P.quantita_prodotta) AS produzione_totale
+FROM PRODUZIONE P
+JOIN MIELE M ON P.id_miele = M.id
+JOIN TIPOLOGIA T ON M.id_tipologia = T.id
+GROUP BY T.id, T.Nome;
+
 -- Seleziona il numero di mieli per ciascuna tipologia.
+SELECT T.id AS tipologia_id, T.Nome AS tipologia_nome, COUNT(M.id) AS numero_mieli
+FROM TIPOLOGIA T
+LEFT JOIN MIELE M ON T.id = M.id_tipologia
+GROUP BY T.id, T.Nome;
+
 -- Seleziona la produzione totale per apicoltore (beekeeper_id).
+SELECT A.id AS apicoltore_id, A.Nome AS apicoltore_nome, SUM(P.quantita_prodotta) AS produzione_totale
+FROM PRODUZIONE P
+JOIN APIARIO AP ON P.codice_apiario = AP.codice_apiario
+JOIN APICOLTORE A ON AP.id_apicoltore = A.id
+GROUP BY A.id, A.Nome;
+
 -- Seleziona la produzione media per arnia (produzione totale divisa per num_hives) per apiario.
+SELECT AP.codice_apiario, AP.numero_arnie, 
+        SUM(P.quantita_prodotta) / AP.numero_arnie AS produzione_media_per_arnia
+FROM PRODUZIONE P
+JOIN APIARIO AP ON P.codice_apiario = AP.codice_apiario
+GROUP BY AP.codice_apiario, AP.numero_arnie;
+
 -- Seleziona per ogni anno il conteggio delle produzioni con quantità maggiore di 100.
+SELECT anno, COUNT(*) AS conteggio_produzioni
+FROM PRODUZIONE
+WHERE quantita_prodotta > 100
+GROUP BY anno;
+
 -- Seleziona per ogni miele e anno la somma delle quantità.
+SELECT id_miele, anno, SUM(quantita_prodotta) AS somma_quantita
+FROM PRODUZIONE
+GROUP BY id_miele, anno;
