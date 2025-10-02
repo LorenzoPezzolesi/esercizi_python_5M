@@ -1,4 +1,4 @@
--- database: :memory:
+-- database: pezzolesi_es3.db
 CREATE TABLE APICOLTORE (
     id INT PRIMARY KEY,
     Nome VARCHAR(50) NOT NULL
@@ -31,7 +31,7 @@ CREATE TABLE APIARIO (
 CREATE TABLE PRODUZIONE (
     id INT PRIMARY KEY,
     anno INT NOT NULL,
-    quantita_prodotta INT NOT NULL,
+    quantita_prodotta FLOAT NOT NULL,
     id_miele INT,
     codice_apiario INT,
     totale_produzione INT,
@@ -78,17 +78,17 @@ INSERT INTO APIARIO (codice_apiario, numero_arnie, localita, comune, provincia, 
 (103, 5, 'Terrazza Sud', 'Verona', 'Verona', 'Veneto', 1);
 
 -- Produzione
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
 (1, 2022, 120.5, 100, 1);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
 (2, 2022, 95.2, 101, 3);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
 (3, 2023, 210.0, 102, 5);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
 (4, 2023, 34.7, 103, 2);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
 (5, 2024, 150.0, 100, 3);
-INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario, totale_produzione) VALUES
+INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
 (6, 2024, 78.3, 101, 4);
 
 -- Seleziona la quantità totale prodotta per anno. 
