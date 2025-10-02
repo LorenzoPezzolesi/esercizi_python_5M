@@ -1,4 +1,4 @@
--- database: pezzolesi_es3.db
+-- database: pezzolesi_3.db
 CREATE TABLE APICOLTORE (
     id INT PRIMARY KEY,
     Nome VARCHAR(50) NOT NULL
@@ -79,17 +79,17 @@ INSERT INTO APIARIO (codice_apiario, numero_arnie, localita, comune, provincia, 
 
 -- Produzione
 INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
-(1, 2022, 120.5, 100, 1);
+(1, 2022, 120.5, 1, 100);
 INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
-(2, 2022, 95.2, 101, 3);
+(2, 2022, 95.2, 2, 101);
 INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
-(3, 2023, 210.0, 102, 5);
+(3, 2023, 210.0, 5, 102);
 INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
-(4, 2023, 34.7, 103, 2);
+(4, 2023, 34.7, 3, 103);
 INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
-(5, 2024, 150.0, 100, 3);
+(5, 2024, 150.0, 1, 102);
 INSERT INTO PRODUZIONE (id, anno, quantita_prodotta, id_miele, codice_apiario) VALUES
-(6, 2024, 78.3, 101, 4);
+(6, 2024, 78.3, 2, 103);
 
 -- Seleziona la quantità totale prodotta per anno. 
 SELECT anno, SUM(quantita_prodotta) AS totale_produzione
