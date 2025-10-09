@@ -3,6 +3,7 @@ from typing import List, Tuple
 
 # Connessione al database SQLite 'scuola.db'
 conn: sqlite3.Connection = sqlite3.connect("scuola.db")
+# Creazione del cursore
 cursor: sqlite3.Cursor = conn.cursor()
 
 try:
