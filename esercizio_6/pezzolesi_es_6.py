@@ -119,6 +119,24 @@ def query_prestiti_non_restituiti() -> List[Tuple[int, str, str, str]]:
     """)
     return cursor.fetchall()
 
+def query_elenco_libri() -> List[Tuple[int, str, str, str]]:
+    """Restituisce l'elenco di tutti i libri con autore e genere."""
+    cursor.execute("""
+        SELECT Libri.id, Libri.titolo, Autori.nome, Autori.cognome AS autore, Libri.genere
+        FROM Libri
+        JOIN Autori ON Libri.autore_id = Autori.id
+    """)
+    return cursor.fetchall()
+
+def query_elenco_prestiti() -> List[Tuple[int, str, str, str, str]]:
+    """Restituisce l'elenco di tutti i prestiti con titolo del libro e utente."""
+    cursor.execute("""
+        SELECT Prestiti.id, Libri.titolo, Prestiti.utente, Prestiti.data_prestito, Prestiti.data_restituzione
+        FROM Prestiti
+        JOIN Libri ON Prestiti.libro_id = Libri.id
+    """)
+    return cursor.fetchall()
+
 # Codice principale
 if __name__ == "__main__":
     try:
@@ -126,35 +144,35 @@ if __name__ == "__main__":
         insert_data()
         print("Database creato e dati inseriti con successo.\n")
 
-        # Query 3: Libri per autore (es. autore_id=1)
+        # Query 3: Libri per autore (es. autore_id=1):
         print("3) Libri dell'autore con id 1:")
         libri_autore = query_libri_per_autore(1)
         for libro in libri_autore:
             print(f"ID: {libro[0]}, Titolo: {libro[1]}, Anno: {libro[2]}, Genere: {libro[3]}")
         print()
 
-        # Query 4: Prestiti per utente (es. 'Mario Rossi')
+        # Query 4: Prestiti per utente (es. 'Mario Rossi'):
         print("4) Prestiti dell'utente 'Mario Rossi':")
         prestiti_utente = query_prestiti_per_utente('Mario Rossi')
         for prestito in prestiti_utente:
             print(f"ID Prestito: {prestito[0]}, Titolo Libro: {prestito[1]}, Data Prestito: {prestito[2]}, Data Restituzione: {prestito[3]}")
         print()
 
-        # Query 5: Libri per genere
+        # Query 5: Libri per genere:
         print("5) Numero di libri per genere:")
         libri_genere = query_libri_per_genere()
         for genere in libri_genere:
             print(f"Genere: {genere[0]}, Numero libri: {genere[1]}")
         print()
 
-        # Query 6: Autori con più libri
+        # Query 6: Autori con più libri:
         print("6) Autori ordinati per numero di libri:")
         autori_libri = query_autori_con_piu_libri()
         for autore in autori_libri:
             print(f"Nome: {autore[0]}, Cognome: {autore[1]}, Numero libri: {autore[2]}")
         print()
 
-        # Query 7: Prestiti non restituiti
+        # Query 7: Prestiti non restituiti:
         print("7) Prestiti non ancora restituiti:")
         prestiti_non_restituiti = query_prestiti_non_restituiti()
         for prestito in prestiti_non_restituiti:
@@ -165,4 +183,3 @@ if __name__ == "__main__":
         conn.close()
         print("\nConnessione chiusa.")
 
-   
