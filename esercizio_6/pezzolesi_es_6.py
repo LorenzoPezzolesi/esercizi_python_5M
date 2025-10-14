@@ -163,4 +163,6 @@ if __name__ == "__main__":
     finally:
         # Chiusura connessione
         conn.close()
-        print("\nConnessione chiusa.")                                                                                                                                            
+        print("\nConnessione chiusa.")
+
+   
