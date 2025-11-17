@@ -1,0 +1,83 @@
+erDiagram
+    %% Entità Azienda Vinicola
+    AZIENDA_VINICOLA {
+        string partita_iva PK
+        string nome
+        string via
+        string numero_civico
+        string comune
+        string provincia
+        string regione
+    }
+    
+    %% Entità Vigneto
+    VIGNETO {
+        int codice PK
+        string nome
+        decimal superficie_totale
+        string localita
+        string comune
+        string classe_esposizione
+        int numero_filari
+        string azienda_piva FK
+    }
+    
+    %% Entità Blocco (parcella)
+    BLOCCO {
+        int codice PK
+        decimal superficie
+        string classe_esposizione
+        int vigneto_cod FK
+    }
+    
+    %% Entità Vitigno
+    VITIGNO {
+        int id PK
+        string nome_scientifico
+        string nome_comune
+        string colore_bacca
+        string origine_genetica
+    }
+    
+    %% Entità Coltivazione (relazione Blocco-Vitigno)
+    COLTIVAZIONE {
+        int blocco_cod FK
+        int vitigno_id FK
+        decimal percentuale_superficie
+    }
+    
+    %% Entità Etichetta
+    ETICHETTA {
+        int id PK
+        string nome
+        int annata
+        string tipologia
+        string azienda_piva FK
+        int vigneto_principale_cod FK
+        int vitigno_prevalente_id FK
+    }
+    
+    %% Relazioni principali
+    AZIENDA_VINICOLA ||--o{ VIGNETO : "possiede"
+    VIGNETO ||--|{ BLOCCO : "suddiviso_in"
+    BLOCCO ||--o{ COLTIVAZIONE : "coltiva"
+    VITIGNO ||--o{ COLTIVAZIONE : "coltivato_in"
+    AZIENDA_VINICOLA ||--o{ ETICHETTA : "produce"
+    VIGNETO ||--o{ ETICHETTA : "origine_di"
+    VITIGNO ||--o{ ETICHETTA : "prevalente_in"
+    
+    %% Note sulle cardinalità e vincoli:
+    %% Azienda (1) - Vigneto (N): ogni azienda possiede più vigneti
+    %% Vigneto (1) - Blocco (N): ogni vigneto è suddiviso in uno o più blocchi
+    %% Blocco (N) - Vitigno (M): relazione molti-a-molti tramite COLTIVAZIONE
+    %% COLTIVAZIONE memorizza la percentuale di superficie per ogni vitigno nel blocco
+    %% Azienda (1) - Etichetta (N): ogni azienda produce più etichette
+    %% Vigneto (1) - Etichetta (N): ogni etichetta proviene da un vigneto principale
+    %% Vitigno (1) - Etichetta (N): ogni etichetta può avere un vitigno prevalente
+    
+    %% Vincoli di dominio:
+    %% - colore_bacca: 'rossa' o 'bianca'
+    %% - classe_esposizione: 'nord', 'sud', 'est', 'ovest'
+    %% - tipologia: 'DOC', 'IGT', 'Vino da Tavola'
+    %% - percentuale_superficie: valore tra 0 e 100
+    %% - La somma delle percentuali in COLTIVAZIONE per blocco deve essere <= 100
