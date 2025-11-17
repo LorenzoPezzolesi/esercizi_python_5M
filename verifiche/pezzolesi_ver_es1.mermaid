@@ -1,0 +1,71 @@
+erDiagram
+    %% Entità Filiale
+    FILIALE {
+        int codice PK
+        string indirizzo
+        string citta
+    }
+    
+    %% Entità Panettiere
+    PANETTIERE {
+        int id PK
+        string nome
+        string cognome
+        int filiale_cod FK
+    }
+    
+    %% Entità Prodotto
+    PRODOTTO {
+        int codice PK
+        string nome
+        decimal prezzo_vendita
+        int panettiere_ideatore FK
+    }
+    
+    %% Entità Ingrediente
+    INGREDIENTE {
+        int codice PK
+        string nome
+        decimal costo_unitario
+    }
+    
+    %% Entità Composizione (relazione Prodotto-Ingrediente)
+    COMPOSIZIONE {
+        int prodotto_cod FK
+        int ingrediente_cod FK
+        decimal quantita
+    }
+    
+    %% Entità Vendita
+    VENDITA {
+        int id PK
+        date data
+        int filiale_cod FK
+        decimal importo_totale
+    }
+    
+    %% Entità Riga_Vendita
+    RIGA_VENDITA {
+        int vendita_id FK
+        int prodotto_cod FK
+        int quantita
+        decimal prezzo_unitario
+    }
+    
+    %% Relazioni
+    FILIALE ||--o{ PANETTIERE : "impiega"
+    PANETTIERE ||--o{ PRODOTTO : "idea"
+    PRODOTTO ||--o{ COMPOSIZIONE : "composto_da"
+    INGREDIENTE ||--o{ COMPOSIZIONE : "usato_in"
+    FILIALE ||--o{ VENDITA : "effettua"
+    VENDITA ||--o{ RIGA_VENDITA : "contiene"
+    PRODOTTO ||--o{ RIGA_VENDITA : "venduto_in"
+    
+    %% Note sulle cardinalità:
+    %% ||--o{ significa uno a molti (1:N)
+    %% Filiale (1) - Panettiere (N): ogni panettiere lavora in una filiale
+    %% Panettiere (1) - Prodotto (N): ogni panettiere può ideare più prodotti
+    %% Prodotto (1) - Composizione (N) - Ingrediente (1): molti a molti
+    %% Filiale (1) - Vendita (N): ogni filiale effettua più vendite
+    %% Vendita (1) - Riga_Vendita (N): ogni vendita ha più righe
+    %% Prodotto (1) - Riga_Vendita (N): ogni prodotto può essere in più righe
