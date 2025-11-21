@@ -1,3 +1,4 @@
+-- database: :memory:
 -- Creazione tabelle
 
 CREATE TABLE Negozi (
