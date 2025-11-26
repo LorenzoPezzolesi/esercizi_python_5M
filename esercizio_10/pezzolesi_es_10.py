@@ -34,10 +34,12 @@ def main():
     # 1. Recupera tutti i todos dell'utente con ID = 1
     lista_delle_cose_da_fare: Optional[list] = get_todos_by_user(user_id)
     if lista_delle_cose_da_fare is None:
-        return
+        return #----
 
     print("--- Todos dell'utente 1 ---")
+    #prendendo la lunghezza della lista delle cose da fare ho la somma totale dei todos (i todos sarebbero le cose da fare)
     total_todos = len(lista_delle_cose_da_fare)
+    #inizializzo a zero i todos completati perchè inizialmente i todos completati sono zero
     completed_todos = 0
     for todo in lista_delle_cose_da_fare:
         if todo["completed"]:
