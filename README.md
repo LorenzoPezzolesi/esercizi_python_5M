@@ -1,10 +1,11 @@
 # esercizi_python_5M
 TIN BOTA TUT
 
+Le domande sono nel repo IT 
 Schema per come rispondere alle domande --> preambolo, risposta alla domanda, possibili collegamenti ad altri argomenti
 
-##Per esame:
-##cerca di collegare piu o meno tutte le domande 
+## Per esame:
+## cerca di collegare piu o meno tutte le domande 
 
 ### Domande possibili per esame:
 ### -che cosè la chiave primaria di una tabella? (PK --> con autoincrement? )
